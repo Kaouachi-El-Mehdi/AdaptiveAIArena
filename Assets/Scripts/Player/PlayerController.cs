@@ -40,7 +40,11 @@ public class PlayerController : MonoBehaviour
 
     void TryAttack()
     {
-        if (Time.time - lastAttackTime < attackCooldown) return;
+        if (Time.time - lastAttackTime < attackCooldown)
+        {
+            Debug.Log("Player attack on cooldown.");
+            return;
+        }
         if (enemyHealth == null || enemyHealth.IsDead) return;
 
         float dist = Vector2.Distance(transform.position, enemyTransform.position);
@@ -48,6 +52,11 @@ public class PlayerController : MonoBehaviour
         {
             enemyHealth.TakeDamage(attackDamage);
             lastAttackTime = Time.time;
+            Debug.Log($"Player hit Enemy for {attackDamage} (Enemy HP: {enemyHealth.Current}/{enemyHealth.maxHealth})");
+        }
+        else
+        {
+            Debug.Log($"Player attack missed — out of range ({dist:F1} > {attackRange}).");
         }
     }
 }

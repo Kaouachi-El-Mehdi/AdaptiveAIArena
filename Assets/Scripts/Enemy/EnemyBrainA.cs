@@ -63,5 +63,6 @@ public class EnemyBrainA : MonoBehaviour
         if (Time.time - lastAttackTime < attackCooldown) return;
         playerHealth.TakeDamage(attackDamage);
         lastAttackTime = Time.time;
+        Debug.Log($"Enemy hit Player for {attackDamage} (Player HP: {playerHealth.Current}/{playerHealth.maxHealth})");
     }
 }

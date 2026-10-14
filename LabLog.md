@@ -38,3 +38,21 @@ URP 17.6.0, nouveau Input System (1.20.0) actif en mode exclusif (`activeInputHa
 **Prochaine étape :** playtest manuel dans l'Editor pour valider que Brain A se comporte
 correctement (idle/chase/attack) et que le round se termine proprement, puis étape 2
 (écriture CSV réelle).
+
+## 2026-10-14 — Playtest manuel Brain A (validation étape 1)
+
+**Ajouts avant playtest :** logs Console pour rendre le combat observable
+(`Enemy hit Player…`, `Player hit Enemy…`, attaque en cooldown, attaque hors portée).
+Scène `SampleScene` reconstruite via `AdaptiveAIArena > Build Arena Scene`.
+
+**Résultats (tous validés par l'utilisateur) :**
+- Idle tant que le joueur est hors `detectionRange`, passe en Chase quand il s'approche. ✅
+- Attaque au contact, dégâts visibles dans la Console. ✅
+- Le joueur peut toucher l'ennemi, dégâts visibles dans la Console. ✅
+- Fin de round correcte (mort d'un des deux ou timeout 60s) avec `SessionResult`
+  affiché dans la Console. ✅
+
+**Statut :** étape 1/6 terminée. Brain A tuning_iteration_number = 0 (valeurs par défaut,
+aucun réglage manuel encore).
+
+**Prochaine étape :** étape 2 — écriture réelle des `SessionResult` en CSV.
