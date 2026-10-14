@@ -56,3 +56,18 @@ Scène `SampleScene` reconstruite via `AdaptiveAIArena > Build Arena Scene`.
 aucun réglage manuel encore).
 
 **Prochaine étape :** étape 2 — écriture réelle des `SessionResult` en CSV.
+
+## 2026-10-14 — Étape 2 : écriture CSV des SessionResult
+
+**Construit :** `SessionLogger.cs` (Core/) — ajoute une ligne par round dans
+`Application.persistentDataPath/sessions.csv` (en-tête écrit à la création du fichier).
+Floats écrits en `CultureInfo.InvariantCulture` (sinon virgule décimale sur une machine
+en locale FR → colonnes CSV cassées).
+
+**Décision méthodologique :** `outcome` est désormais exprimé du point de vue de
+l'ennemi (le cerveau testé), comme `damage_dealt`/`damage_taken`. Avant correction,
+`outcome` était du point de vue du joueur → une ligne mélangeait deux perspectives
+(ex. "A, Loss, damage_dealt=100" alors que Brain A avait gagné). Enemy tue le joueur = Win.
+Les 2 lignes de test écrites avant la correction ont été supprimées.
+
+**Validé :** fichier créé, en-tête + 1 ligne par round, colonnes correctes.

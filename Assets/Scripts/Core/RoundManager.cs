@@ -27,8 +27,10 @@ public class RoundManager : MonoBehaviour
 
         float elapsed = Time.time - roundStartTime;
 
-        if (playerHealth.IsDead) EndRound(RoundOutcome.Loss, elapsed);
-        else if (enemyHealth.IsDead) EndRound(RoundOutcome.Win, elapsed);
+        // Outcome is from the enemy brain's perspective (same as the damage columns),
+        // since each row scores the brain being tested: enemy kills player = Win.
+        if (playerHealth.IsDead) EndRound(RoundOutcome.Win, elapsed);
+        else if (enemyHealth.IsDead) EndRound(RoundOutcome.Loss, elapsed);
         else if (elapsed >= GameConstants.RoundTimeoutSeconds) EndRound(RoundOutcome.Timeout, elapsed);
     }
 
@@ -36,8 +38,8 @@ public class RoundManager : MonoBehaviour
     {
         RoundEnded = true;
 
-        // damageDealt/damageTaken are from the enemy brain's perspective, since
-        // brainType describes the enemy being tested.
+        // All fields are from the enemy brain's perspective, since brainType
+        // describes the enemy being tested.
         LastResult = new SessionResult
         {
             brainType = brainType,
@@ -51,5 +53,6 @@ public class RoundManager : MonoBehaviour
         };
 
         Debug.Log($"[Round End] outcome={outcome} time={elapsed:F1}s dmgDealt={LastResult.damageDealt} dmgTaken={LastResult.damageTaken}");
+        SessionLogger.Append(LastResult);
     }
 }
