@@ -35,3 +35,10 @@ crashlytics-build.properties
 
 # ML-Agents training results (large, not needed for the repo)
 /results/
+
+# Python env for ML-Agents (recreate from ml-requirements.txt)
+/ml-venv/
+
+# ML-Agents runtime timer dumps (written when playing in the Editor)
+/[Aa]ssets/ML-Agents/Timers/
+/[Aa]ssets/ML-Agents/Timers.meta

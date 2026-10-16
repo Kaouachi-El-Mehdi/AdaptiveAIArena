@@ -3,20 +3,18 @@ using UnityEngine;
 public enum BrainAState { Idle, Chase, Attack }
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EnemyBrainA : MonoBehaviour
+public class EnemyBrainA : MonoBehaviour, IEnemyBrain
 {
     [Header("Tunable parameters (manual changes here = logged tuning iterations)")]
-    public float moveSpeed = 3f;
-    public float attackRange = 1.2f;
-    public float attackDamage = 8f;
-    public float attackCooldown = 0.8f;
-    public float detectionRange = 6f;
+    public EnemyStats stats = EnemyStats.Initial();
 
     public Health health;
     public Transform playerTransform;
     public Health playerHealth;
 
     public BrainAState CurrentState { get; private set; } = BrainAState.Idle;
+    public string BrainType => "A";
+    public EnemyStats Stats => stats;
 
     Rigidbody2D rb;
     float lastAttackTime = -999f;
@@ -26,7 +24,8 @@ public class EnemyBrainA : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    // Physics tick, not Update: same behaviour at any time scale (see PlayerController).
+    void FixedUpdate()
     {
         if (health.IsDead || playerHealth.IsDead)
         {
@@ -36,8 +35,8 @@ public class EnemyBrainA : MonoBehaviour
 
         float dist = Vector2.Distance(transform.position, playerTransform.position);
 
-        if (dist > detectionRange) CurrentState = BrainAState.Idle;
-        else if (dist > attackRange) CurrentState = BrainAState.Chase;
+        if (dist > stats.detectionRange) CurrentState = BrainAState.Idle;
+        else if (dist > GameConstants.AttackRange) CurrentState = BrainAState.Chase;
         else CurrentState = BrainAState.Attack;
 
         switch (CurrentState)
@@ -48,7 +47,7 @@ public class EnemyBrainA : MonoBehaviour
 
             case BrainAState.Chase:
                 Vector2 dir = ((Vector2)playerTransform.position - rb.position).normalized;
-                rb.linearVelocity = dir * moveSpeed;
+                rb.linearVelocity = dir * stats.moveSpeed;
                 break;
 
             case BrainAState.Attack:
@@ -60,9 +59,10 @@ public class EnemyBrainA : MonoBehaviour
 
     void TryAttack()
     {
-        if (Time.time - lastAttackTime < attackCooldown) return;
-        playerHealth.TakeDamage(attackDamage);
+        if (Time.time - lastAttackTime < stats.attackCooldown) return;
+        playerHealth.TakeDamage(stats.attackDamage);
         lastAttackTime = Time.time;
-        Debug.Log($"Enemy hit Player for {attackDamage} (Player HP: {playerHealth.Current}/{playerHealth.maxHealth})");
+        if (RoundManager.CombatLogs)
+            Debug.Log($"Enemy hit Player for {stats.attackDamage} (Player HP: {playerHealth.Current}/{playerHealth.maxHealth})");
     }
 }

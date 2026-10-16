@@ -1,17 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Player stats are constants (GameConstants), so they are identical whether a human
+// or the training bot is playing.
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 4f;
-    public float attackRange = 1.2f;
-    public float attackDamage = 10f;
-    public float attackCooldown = 0.6f;
-
     public Health health;
     public Transform enemyTransform;
     public Health enemyHealth;
+
+    [Tooltip("Empty = keyboard control. Set = scripted bot (Brain B's training opponent).")]
+    public PlayerProxyBot bot;
 
     Rigidbody2D rb;
     float lastAttackTime = -999f;
@@ -21,42 +21,71 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    // Keyboard input is read every frame (so no key press is missed) and buffered;
+    // movement and attacks are applied on the physics tick. Gameplay logic runs in FixedUpdate
+    // so it behaves the same at any time scale (ML-Agents trains at 20x speed, where Update
+    // only runs ~3 times per game-second).
+    Vector2 keyboardMove;
+    bool keyboardAttackQueued;
+
     void Update()
     {
+        if (bot != null) return;
         var kb = Keyboard.current;
         if (kb == null) return;
 
-        Vector2 move = Vector2.zero;
-        if (kb.wKey.isPressed || kb.upArrowKey.isPressed) move.y += 1f;
-        if (kb.sKey.isPressed || kb.downArrowKey.isPressed) move.y -= 1f;
-        if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) move.x -= 1f;
-        if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) move.x += 1f;
+        keyboardMove = Vector2.zero;
+        if (kb.wKey.isPressed || kb.upArrowKey.isPressed) keyboardMove.y += 1f;
+        if (kb.sKey.isPressed || kb.downArrowKey.isPressed) keyboardMove.y -= 1f;
+        if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) keyboardMove.x -= 1f;
+        if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) keyboardMove.x += 1f;
+        if (kb.spaceKey.wasPressedThisFrame) keyboardAttackQueued = true;
+    }
 
-        rb.linearVelocity = move.normalized * moveSpeed;
+    void FixedUpdate()
+    {
+        Vector2 move;
+        bool attack;
 
-        if (kb.spaceKey.wasPressedThisFrame)
+        if (bot != null)
+        {
+            move = bot.Move;
+            attack = bot.ConsumeAttack();
+        }
+        else
+        {
+            move = keyboardMove;
+            attack = keyboardAttackQueued;
+            keyboardAttackQueued = false;
+        }
+
+        // Same as normalizing for keyboard input, but lets the bot move slower than full speed.
+        rb.linearVelocity = Vector2.ClampMagnitude(move, 1f) * GameConstants.PlayerMoveSpeed;
+
+        if (attack)
             TryAttack();
     }
 
     void TryAttack()
     {
-        if (Time.time - lastAttackTime < attackCooldown)
+        if (Time.time - lastAttackTime < GameConstants.PlayerAttackCooldown)
         {
-            Debug.Log("Player attack on cooldown.");
+            if (RoundManager.CombatLogs) Debug.Log("Player attack on cooldown.");
             return;
         }
         if (enemyHealth == null || enemyHealth.IsDead) return;
 
         float dist = Vector2.Distance(transform.position, enemyTransform.position);
-        if (dist <= attackRange)
+        if (dist <= GameConstants.AttackRange)
         {
-            enemyHealth.TakeDamage(attackDamage);
+            enemyHealth.TakeDamage(GameConstants.PlayerAttackDamage);
             lastAttackTime = Time.time;
-            Debug.Log($"Player hit Enemy for {attackDamage} (Enemy HP: {enemyHealth.Current}/{enemyHealth.maxHealth})");
+            if (RoundManager.CombatLogs)
+                Debug.Log($"Player hit Enemy for {GameConstants.PlayerAttackDamage} (Enemy HP: {enemyHealth.Current}/{enemyHealth.maxHealth})");
         }
-        else
+        else if (RoundManager.CombatLogs)
         {
-            Debug.Log($"Player attack missed — out of range ({dist:F1} > {attackRange}).");
+            Debug.Log($"Player attack missed — out of range ({dist:F1} > {GameConstants.AttackRange}).");
         }
     }
 }

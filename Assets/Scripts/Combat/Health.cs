@@ -10,6 +10,12 @@ public class Health : MonoBehaviour
 
     void Awake()
     {
+        ResetHealth();
+    }
+
+    // Called at the start of every round (training resets rounds without reloading the scene).
+    public void ResetHealth()
+    {
         Current = maxHealth;
         DamageTaken = 0f;
     }
