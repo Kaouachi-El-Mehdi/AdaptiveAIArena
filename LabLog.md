@@ -243,7 +243,7 @@ Données dans `data/bot_calibration_20261016.csv` (contient A et B, colonne `bra
   de justesse est plus facile à contrôler pour B. Comportement de DDA classique ("le joueur gagne de
   justesse"), mais à signaler. Changer cela = nouvelle itération de récompense (non faite).
 
-## 2026-10-16 15:20 — Décisions après `brainB_v1`
+## 2026-10-16 15:09 — Décisions après `brainB_v1`
 
 - **Récompense v1 conservée** (définitive). Une récompense v2 (corriger le biais vers la défaite serrée)
   ira dans les *Perspectives* du mémoire, pas de travail maintenant. Limites de B v1 écrites dans `CLAUDE.md`.
@@ -255,3 +255,13 @@ Données dans `data/bot_calibration_20261016.csv` (contient A et B, colonne `bra
   Égalité → médiane sur l'écart PV final moyen.
 - Modèle renommé `BrainB_v1_run1.onnx` (les suivants : `_run2`, `_run3`).
 - Dossier `Assets/ML-Agents/Timers` (fichiers d'exécution d'ML-Agents) ajouté au `.gitignore`.
+
+## 2026-10-16 15:13 — Runs 2 et 3 lancés + sélection pré-enregistrée
+
+- 15:12 : `brainB_v1_s2` (`--seed 2`) et `brainB_v1_s3` (`--seed 3`) lancés **en parallèle**
+  (24 cœurs ; ports 5105 / 5205). Même config, même build d'entraînement que le run 1.
+  Vitesse identique à un run seul (~37 s / 10 000 steps).
+- Script de sélection `analysis/select_brainB_model.py` écrit et commité **avant** les résultats des
+  runs 2–3 : il applique mécaniquement la règle de la médiane (voir `CLAUDE.md`).
+- Les 3 runs sont réévalués avec des builds identiques (`BuildEvaluationBPlayer -brainBModel <onnx>`).
+  Run 1 réévalué : `data/eval_BrainB_v1_run1.csv` (pas encore résumé).

@@ -40,7 +40,20 @@ public static class ArenaSetup
     [MenuItem("AdaptiveAIArena/Build Evaluation Scene (bot vs trained Brain B)")]
     public static void BuildEvaluationBScene() => BuildArena(EvaluationBScenePath, Brain.B, botPlayer: true, calibration: true);
 
-    public static void BuildEvaluationBPlayer() => BuildPlayer(BuildEvaluationBScene, EvaluationBScenePath, "Builds/EvaluationB/Arena.exe");
+    // Batch mode, to evaluate another trained run: add -brainBModel Assets/Models/<file>.onnx
+    // (default: BrainBModelPath). Output: Builds/EvaluationB_<model name>/Arena.exe
+    public static void BuildEvaluationBPlayer() => BuildPlayer(BuildEvaluationBScene, EvaluationBScenePath,
+        $"Builds/EvaluationB_{Path.GetFileNameWithoutExtension(SelectedModelPath)}/Arena.exe");
+
+    static string SelectedModelPath
+    {
+        get
+        {
+            var args = System.Environment.GetCommandLineArgs();
+            int i = System.Array.IndexOf(args, "-brainBModel");
+            return i >= 0 && i + 1 < args.Length ? args[i + 1] : BrainBModelPath;
+        }
+    }
 
     // Standalone calibration player: plays all skill levels, writes bot_calibration.csv, quits.
     // Run it with: Builds/Calibration/Arena.exe -batchmode -nographics
@@ -112,8 +125,8 @@ public static class ArenaSetup
             // Training scene: no model, so mlagents-learn drives it.
             if (scenePath != TrainingScenePath)
             {
-                var model = AssetDatabase.LoadAssetAtPath<Unity.InferenceEngine.ModelAsset>(BrainBModelPath);
-                if (model == null) Debug.LogWarning($"[ArenaSetup] No trained model at {BrainBModelPath}: Brain B will use its heuristic.");
+                var model = AssetDatabase.LoadAssetAtPath<Unity.InferenceEngine.ModelAsset>(SelectedModelPath);
+                if (model == null) Debug.LogWarning($"[ArenaSetup] No trained model at {SelectedModelPath}: Brain B will use its heuristic.");
                 bp.Model = model;
             }
 

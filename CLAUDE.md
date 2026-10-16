@@ -77,6 +77,9 @@ bump `RoundManager.tuningIterationNumber` and record the pass in `LabLog.md`
 - **Model for human sessions = the run with the median average close-rate** (the middle one of the 3,
   not the best one: no cherry-picking). Tie on close-rate → median on mean final HP gap.
   All 3 runs are reported in the mémoire (spread across seeds = training variability).
+- The selection uses a **fresh evaluation of all 3 runs** with identical builds
+  (`BuildEvaluationBPlayer -brainBModel <onnx>`), run 1 included; run 1's first evaluation
+  (`data/bot_calibration_20261016.csv`) is kept only as a check that evaluation is reproducible.
 
 ## Logging schema (append-only: never rename/reorder)
 `brain_type, session_id, timestamp, outcome, time_to_complete, damage_dealt, damage_taken, tuning_iteration_number, enemy_move_speed, enemy_attack_cooldown, enemy_attack_damage, enemy_detection_range`
