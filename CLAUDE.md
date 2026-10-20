@@ -1,5 +1,9 @@
 # Adaptive AI Arena — project instructions
 
+## Deadline (set 2026-10-20)
+Mémoire deposited **Sunday 25 October 2026**. Human sessions (Brain A tuning included) must be
+**finished by Thursday 22 October evening**. Time-box everything; prefer a smaller clean dataset.
+
 ## Why this project exists
 Supporting evidence for the user's IPSSI Mémoire de Recherche, *« L'intelligence artificielle
 dans l'industrie du jeu vidéo »*. The app itself is **not graded**. Its only job is to produce
@@ -39,11 +43,18 @@ B (at A-initial stats). Comparison axes: combat outcome data (CSV) + development
   Only its decisions differ. Known information difference to state in the mémoire: B observes
   both HP values (needed for DDA); A doesn't use them.
 
-## Brain A tuning
-Exactly **4 tunable parameters**: `moveSpeed`, `attackCooldown`, `attackDamage`, `detectionRange`
-(`EnemyBrainA.stats` in the Inspector). Each manual tuning pass = **one tuning iteration**:
-bump `RoundManager.tuningIterationNumber` and record the pass in `LabLog.md`
-(old → new values, reason).
+## Brain A tuning (procedure decided 2026-10-20)
+Exactly **4 tunable parameters**: `moveSpeed`, `attackCooldown`, `attackDamage`, `detectionRange`.
+Current values live in **`Assets/Scripts/Enemy/BrainATuning.cs`** (`Iteration` + `Stats()`), read at
+runtime by the A-tuned condition and tuning blocks (no Inspector editing, no scene rebuild).
+- The user plays **blocks of 10 rounds** vs Brain A (start screen → *Bloc de réglage Brain A*;
+  rows logged with `participant_id = DEV`, `condition = A-tuning`). A block **succeeds if ≥ 7/10
+  rounds are close** (gap ≤ 0.2); the end screen shows the count.
+- Iteration 0 = initial stats (baseline block). Each change of the stats = **one tuning iteration**:
+  edit `BrainATuning.cs` (values + `Iteration`), then a `LabLog.md` entry with the new values, the
+  block's close-count and the minutes spent on that pass.
+- **Max 8 iterations**, even if the target is not reached (record that honestly). Final values =
+  the A-tuned condition; rebuild the session player after the last iteration.
 
 ## Brain B
 - Observations (9): own position, player-visible flag, relative player position (masked beyond
@@ -82,11 +93,14 @@ bump `RoundManager.tuningIterationNumber` and record the pass in `LabLog.md`
   (`data/bot_calibration_20261016.csv`) is kept only as a check that evaluation is reproducible.
 
 ## Logging schema (append-only: never rename/reorder)
-`brain_type, session_id, timestamp, outcome, time_to_complete, damage_dealt, damage_taken, tuning_iteration_number, enemy_move_speed, enemy_attack_cooldown, enemy_attack_damage, enemy_detection_range`
+`brain_type, session_id, timestamp, outcome, time_to_complete, damage_dealt, damage_taken, tuning_iteration_number, enemy_move_speed, enemy_attack_cooldown, enemy_attack_damage, enemy_detection_range, participant_id, condition, condition_order, condition_position, round_in_condition, difficulty_rating, enjoyment_rating`
 
 - One row per round, appended to `Application.persistentDataPath/sessions.csv` (`SessionLogger.cs`).
 - The 4 `enemy_*` columns (added 2026-10-15) record the stat set in force for each session.
 - All fields are from the **enemy brain's perspective**: enemy kills player = `Win`.
+- 7 session columns appended 2026-10-20: `participant_id, condition, condition_order,
+  condition_position, round_in_condition, difficulty_rating, enjoyment_rating` (ratings 1–5;
+  empty = not asked). `P00` = test run and `DEV` = tuning block: both excluded from the human analysis.
 - Floats written with `InvariantCulture` (French locale would otherwise break the CSV).
 - `tuning_iteration_number` is meaningful for Brain A only; forced to 0 for Brain B.
 - Brain type is read from the enemy component, not typed by hand.
@@ -103,8 +117,22 @@ bump `RoundManager.tuningIterationNumber` and record the pass in `LabLog.md`
    run1 0.650 < run2 0.656; run 3 failed to hold back vs weak bots → seed variability, report it). Per-skill evaluation of A-initial and B in
    `data/bot_calibration_20261016.csv`: B keeps matches close vs weak/medium bots, can't vs strong
    ones (stat ceiling), and leans toward narrow losses. Reward v1 kept.
-5. Repeated sessions (data collection, 3 conditions)
+5. Repeated sessions (data collection, 3 conditions): session flow **built** (2026-10-20,
+   menu *Build Session Scenes*); next: user's test run (P00, includes Brain B in-Editor check),
+   then Brain A tuning blocks, then participants. Deadline Thu 22 Oct evening.
 6. Python analysis script + figures for the mémoire
+
+## Human session protocol (decided 2026-10-20)
+- Each participant plays the **3 conditions** (A-initial, A-tuned, B), **5 rounds each** (15 rounds,
+  < 15 min). After every round: two 1–5 ratings, **perceived difficulty** (1 far too easy, 3 balanced,
+  5 far too hard) and **enjoyment** (1 not at all, 5 very much). The game is paused on those screens.
+- **Blind:** no brain name is ever shown; screens say "Adversaire k sur 3". Same enemy look in all scenes.
+- **Counterbalancing:** the 6 orders of the 3 conditions (`ParticipantSession.Orders`); participant n
+  gets order (n − 1) mod 6 → balanced when the number of participants is a multiple of 6.
+  Assign numbers 1, 2, 3… in arrival order. The start screen warns if a number already has rows.
+- HUD shows both HP values, round number and time left (same in all conditions).
+- Flow: `Session_Start` (participant number) → `Session_BrainA` / `Session_BrainB` per condition
+  (`SessionRoundLoop`, `ParticipantSession`). Build: `ArenaSetup.BuildSessionPlayer` → `Builds/Session/Arena.exe`.
 
 ## Scenes and tools
 - Menu `AdaptiveAIArena >` *Build Arena Scene (Brain A)* / *(Brain B)* / *Build Training Scene

@@ -59,17 +59,51 @@ public static class ArenaSetup
     // Run it with: Builds/Calibration/Arena.exe -batchmode -nographics
     public static void BuildCalibrationPlayer() => BuildPlayer(BuildCalibrationScene, CalibrationScenePath, "Builds/Calibration/Arena.exe");
 
-    static void BuildPlayer(System.Action buildScene, string scenePath, string exePath)
+    // Human sessions: start screen (participant number) + one scene per brain type.
+    // Brain A's stats per condition are applied at runtime by SessionRoundLoop (BrainATuning.cs),
+    // so a tuning iteration doesn't need a scene rebuild.
+    static readonly string[] SessionScenePaths =
+    {
+        $"Assets/Scenes/{ParticipantSession.StartScene}.unity",
+        $"Assets/Scenes/{ParticipantSession.BrainAScene}.unity",
+        $"Assets/Scenes/{ParticipantSession.BrainBScene}.unity",
+    };
+
+    [MenuItem("AdaptiveAIArena/Build Session Scenes (human sessions)")]
+    public static void BuildSessionScenes()
+    {
+        if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
+
+        var start = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
+        new GameObject("SessionMenu").AddComponent<SessionMenu>();
+        EditorSceneManager.SaveScene(start, SessionScenePaths[0]);
+
+        BuildArena(SessionScenePaths[1], Brain.A, botPlayer: false, session: true);
+        BuildArena(SessionScenePaths[2], Brain.B, botPlayer: false, session: true);
+
+        // SceneManager.LoadScene only finds scenes listed in Build Settings (also in Editor Play mode).
+        EditorBuildSettings.scenes = System.Array.ConvertAll(SessionScenePaths, p => new EditorBuildSettingsScene(p, true));
+        EditorSceneManager.OpenScene(SessionScenePaths[0]);
+        Debug.Log("[ArenaSetup] Session scenes built. Press Play in Session_Start.");
+    }
+
+    // Output: Builds/Session/Arena.exe
+    public static void BuildSessionPlayer() => BuildPlayer(BuildSessionScenes, SessionScenePaths, "Builds/Session/Arena.exe");
+
+    static void BuildPlayer(System.Action buildScene, string scenePath, string exePath) =>
+        BuildPlayer(buildScene, new[] { scenePath }, exePath);
+
+    static void BuildPlayer(System.Action buildScene, string[] scenePaths, string exePath)
     {
         buildScene();
-        var report = BuildPipeline.BuildPlayer(new[] { scenePath }, exePath,
+        var report = BuildPipeline.BuildPlayer(scenePaths, exePath,
             BuildTarget.StandaloneWindows64, BuildOptions.None);
         Debug.Log($"[ArenaSetup] Player build {exePath}: {report.summary.result}");
         if (Application.isBatchMode)
             EditorApplication.Exit(report.summary.result == BuildResult.Succeeded ? 0 : 1);
     }
 
-    static void BuildArena(string scenePath, Brain brain, bool botPlayer, bool calibration = false)
+    static void BuildArena(string scenePath, Brain brain, bool botPlayer, bool calibration = false, bool session = false)
     {
         if (!Application.isBatchMode && !EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo()) return;
 
@@ -107,9 +141,10 @@ public static class ArenaSetup
         roundManager.playerHealth = playerHealth;
         roundManager.enemyHealth = enemyHealth;
 
+        EnemyBrainA brainA = null;
         if (brain == Brain.A)
         {
-            var brainA = enemy.AddComponent<EnemyBrainA>();
+            brainA = enemy.AddComponent<EnemyBrainA>();
             brainA.health = enemyHealth;
             brainA.playerTransform = player.transform;
             brainA.playerHealth = playerHealth;
@@ -140,6 +175,15 @@ public static class ArenaSetup
             var requester = enemy.AddComponent<DecisionRequester>();
             requester.DecisionPeriod = 5; // 10 decisions/s at the default 50 Hz physics step
             requester.TakeActionsBetweenDecisions = true;
+        }
+
+        if (session)
+        {
+            var loop = roundManagerGO.AddComponent<SessionRoundLoop>();
+            loop.roundManager = roundManager;
+            loop.playerHealth = playerHealth;
+            loop.enemyHealth = enemyHealth;
+            loop.brainA = brainA;
         }
 
         if (calibration)

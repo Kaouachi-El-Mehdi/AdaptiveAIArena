@@ -302,3 +302,58 @@ aucun changement de code.
   98/99/100/28/0 % (moyenne 0.66 contre 0.65) ; victoires 43/29/12 % contre 37/23/13 %. Pas identique
   au round près (l'évaluation n'est pas déterministe), mais mêmes conclusions : écart de ±6 points sur
   100 rounds, compatible avec le bruit d'échantillonnage.
+
+## 2026-10-20 14:20–14:57 — Étape 5 : déroulé des sessions humaines (construit)
+
+**Décisions (utilisateur, 2026-10-20) :**
+- Dépôt du mémoire **dimanche 25/10** → sessions humaines terminées **jeudi 22/10 au soir**.
+- Chaque participant joue les 3 conditions (A-initial, A-réglé, B), **5 manches chacune** (15 manches, < 15 min).
+- Après chaque manche, deux notes de 1 à 5 : **difficulté perçue** (1 = beaucoup trop facile,
+  3 = équilibrée, 5 = beaucoup trop difficile) et **plaisir** (1 = pas du tout, 5 = beaucoup).
+- **En aveugle :** aucun nom de cerveau affiché ("Adversaire 1 sur 3"), même apparence d'ennemi partout.
+- **Contrebalancement :** les 6 ordres possibles des 3 conditions ; participant n → ordre (n − 1) mod 6.
+  Choix d'une rotation plutôt qu'un tirage au hasard : avec peu de participants, un tirage peut donner
+  plusieurs fois le même ordre ; la rotation garantit l'équilibre si le nombre de participants est un
+  multiple de 6. Numéros attribués dans l'ordre d'arrivée.
+- **Procédure de réglage de Brain A (coût mesurable) :** blocs de 10 manches joués par l'utilisateur ;
+  bloc réussi si ≥ 7/10 manches serrées (écart ≤ 0.2). Chaque changement des 4 stats = 1 itération,
+  notée ici (nouvelles valeurs, nombre de manches serrées, minutes passées). **Maximum 8 itérations**,
+  même si l'objectif n'est pas atteint.
+
+**Construit :**
+- Écran de départ `Session_Start` (numéro de participant ; 0 = essai, non analysé ; avertit si le numéro
+  a déjà des lignes) + scènes `Session_BrainA` / `Session_BrainB` (`SessionRoundLoop`, `ParticipantSession`).
+  Jeu en pause sur tous les écrans (consignes, notes) ; affichage des PV des deux combattants, de la
+  manche et du temps restant, identique dans toutes les conditions.
+- Valeurs de réglage de Brain A dans `BrainATuning.cs` (itération + 4 stats), lues à l'exécution par la
+  condition A-réglé et par les blocs de réglage (bouton développeur sur l'écran de départ, lignes
+  `participant_id = DEV`, `condition = A-tuning`, écran de fin avec le nombre de manches serrées).
+- **Schéma CSV :** 7 colonnes ajoutées à la fin : `participant_id, condition, condition_order,
+  condition_position, round_in_condition, difficulty_rating, enjoyment_rating`. L'ancien `sessions.csv`
+  (2 lignes de test du 15/10, déjà à exclure) sera renommé `sessions_oldschema_<date>.csv` à la première
+  nouvelle ligne.
+- Build : `ArenaSetup.BuildSessionPlayer` → `Builds/Session/Arena.exe` (compile, build OK, démarre sans
+  erreur). Pas encore testé à la main.
+
+**Point méthodologique :** les participants voient les PV des deux combattants (nécessaire pour juger la
+difficulté) ; Brain B les voit aussi, Brain A ne les utilise pas.
+
+## 2026-10-20 15:07 — Test manuel du déroulé de session (P00, P09 = essais)
+
+- Lignes écrites correctement dans le nouveau schéma (19 colonnes) ; ancien fichier renommé
+  `sessions_oldschema_20261020_150159.csv`. Rotation des ordres vérifiée (P09 → ordre 2 : A-tuned|A-initial|B).
+- **Brain B dans l'Editor :** comportement jugé normal par l'utilisateur (déplacement, attaque).
+  Aucune manche contre B encore enregistrée → enregistrement des lignes B et écran de fin à confirmer
+  par une session d'essai complète (P00, 15 manches).
+- Lignes P00 et P09 = **essais**, à exclure ; le fichier sera mis de côté avant le premier vrai participant.
+
+## 2026-10-20 15:10 — Test automatique complet du déroulé (P00)
+
+- Nouveau mode `-autoSessionTest` (build de session) : le bot d'entraînement joue à la place du
+  participant (compétence fixe 0.6), notes automatiques = 3, ×20. Teste le vrai code de session sans clics.
+- Résultat : **15 manches enregistrées** (5 A-initial, 5 A-tuned, 5 B), positions 1/2/3 et manches 1–5
+  correctes, lignes B avec `tuning_iteration_number` 0 et stats 3 / 0.8 / 8 / 6, écran de fin atteint,
+  programme fermé tout seul (14 s). Aucune erreur dans le log.
+- Les clics (consignes, notes) avaient été testés à la main par l'utilisateur (15:01–15:04).
+- Toutes les lignes de test (P00, P09, auto-test) mises de côté : `sessions.csv` renommé
+  `sessions_test_20261020.csv` (rien supprimé). Le prochain `sessions.csv` ne contiendra que des données réelles.

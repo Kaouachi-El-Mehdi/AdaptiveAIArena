@@ -30,6 +30,10 @@ public class RoundManager : MonoBehaviour
     [HideInInspector] public bool calibrationRun;
     bool Simulated => IsTraining || calibrationRun;
 
+    // Set by SessionRoundLoop (human sessions): the round does not restart on its own and is not
+    // logged here; SessionRoundLoop logs it after the ratings and calls StartNextRound().
+    [HideInInspector] public bool sessionMode;
+
     IEnemyBrain brain;
     PlayerProxyBot bot;
     Vector2 playerSpawn, enemySpawn;
@@ -61,6 +65,8 @@ public class RoundManager : MonoBehaviour
         else if (enemyHealth.IsDead) EndRound(RoundOutcome.Loss, elapsed);
         else if (elapsed >= GameConstants.RoundTimeoutSeconds) EndRound(RoundOutcome.Timeout, elapsed);
     }
+
+    public void StartNextRound() => StartRound();
 
     void StartRound()
     {
@@ -115,6 +121,7 @@ public class RoundManager : MonoBehaviour
             StartRound();
             return;
         }
+        if (sessionMode) return;
 
         Debug.Log($"[Round End] brain={LastResult.brainType} outcome={outcome} time={elapsed:F1}s dmgDealt={LastResult.damageDealt} dmgTaken={LastResult.damageTaken}");
         SessionLogger.Append(LastResult);

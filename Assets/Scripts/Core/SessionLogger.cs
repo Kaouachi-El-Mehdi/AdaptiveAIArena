@@ -9,7 +9,9 @@ public static class SessionLogger
 {
     const string FileName = "sessions.csv";
     const string Header = "brain_type,session_id,timestamp,outcome,time_to_complete,damage_dealt,damage_taken,tuning_iteration_number," +
-                          "enemy_move_speed,enemy_attack_cooldown,enemy_attack_damage,enemy_detection_range";
+                          "enemy_move_speed,enemy_attack_cooldown,enemy_attack_damage,enemy_detection_range," +
+                          "participant_id,condition,condition_order,condition_position,round_in_condition," +
+                          "difficulty_rating,enjoyment_rating";
 
     public static string FilePath => Path.Combine(Application.persistentDataPath, FileName);
 
@@ -30,7 +32,14 @@ public static class SessionLogger
             r.enemyMoveSpeed.ToString(inv),
             r.enemyAttackCooldown.ToString(inv),
             r.enemyAttackDamage.ToString(inv),
-            r.enemyDetectionRange.ToString(inv));
+            r.enemyDetectionRange.ToString(inv),
+            r.participantId ?? "",
+            r.condition ?? "",
+            r.conditionOrder ?? "",
+            r.conditionPosition.ToString(inv),
+            r.roundInCondition.ToString(inv),
+            Rating(r.difficultyRating),
+            Rating(r.enjoymentRating));
 
         ArchiveIfOldSchema();
 
@@ -42,6 +51,25 @@ public static class SessionLogger
         }
 
         Debug.Log($"[SessionLogger] Row written to {FilePath}");
+    }
+
+    // 0 = not asked (tuning block): empty cell, so it can't be mistaken for a rating.
+    static string Rating(int v) => v == 0 ? "" : v.ToString(CultureInfo.InvariantCulture);
+
+    // Number of rows already logged for a participant id (warns the experimenter about a reused id).
+    public static int CountRows(string participantId)
+    {
+        if (!File.Exists(FilePath)) return 0;
+        string[] lines = File.ReadAllLines(FilePath);
+        if (lines.Length == 0 || lines[0] != Header) return 0;
+        int col = Array.IndexOf(lines[0].Split(','), "participant_id");
+        int n = 0;
+        for (int i = 1; i < lines.Length; i++)
+        {
+            string[] cells = lines[i].Split(',');
+            if (cells.Length > col && cells[col] == participantId) n++;
+        }
+        return n;
     }
 
     // A file written with an older header would get rows with a different column count.
