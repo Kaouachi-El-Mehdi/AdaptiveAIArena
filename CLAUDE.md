@@ -98,7 +98,9 @@ bump `RoundManager.tuningIterationNumber` and record the pass in `LabLog.md`
 2. Logging (CSV): **done** (2026-10-14; stat columns added 2026-10-15)
 3. Brain B: **code done + smoke-tested** (2026-10-15); needs an in-Editor check by the user
 4. Training (PPO): **done** (2026-10-16). Bot calibrated (skill range [0.2, 1] kept). Run `brainB_v1`
-   (reward v1, 2 M steps) → `Assets/Models/BrainB_v1_run1.onnx`; 2 more seeds for the median rule below. Per-skill evaluation of A-initial and B in
+   (reward v1, 2 M steps) → `Assets/Models/BrainB_v1_run1.onnx`; runs 2–3 (seeds 2, 3) done.
+   **Selected model (median rule, 2026-10-20): `BrainB_v1_run1.onnx`** (avg close-rate: run3 0.514 <
+   run1 0.650 < run2 0.656; run 3 failed to hold back vs weak bots → seed variability, report it). Per-skill evaluation of A-initial and B in
    `data/bot_calibration_20261016.csv`: B keeps matches close vs weak/medium bots, can't vs strong
    ones (stat ceiling), and leans toward narrow losses. Reward v1 kept.
 5. Repeated sessions (data collection, 3 conditions)

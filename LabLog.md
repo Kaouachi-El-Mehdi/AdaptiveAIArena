@@ -265,3 +265,40 @@ Données dans `data/bot_calibration_20261016.csv` (contient A et B, colonne `bra
   runs 2–3 : il applique mécaniquement la règle de la médiane (voir `CLAUDE.md`).
 - Les 3 runs sont réévalués avec des builds identiques (`BuildEvaluationBPlayer -brainBModel <onnx>`).
   Run 1 réévalué : `data/eval_BrainB_v1_run1.csv` (pas encore résumé).
+
+## 2026-10-20 14:00–14:07 — Runs 2 et 3 terminés, évaluation des 3 runs, choix du modèle
+
+- `brainB_v1_s2` et `brainB_v1_s3` terminés (2 M steps chacun, ~127 min en parallèle, fin le 16/10).
+  Récompense moyenne finale : run 2 = 0.78, run 3 = 0.71 (run 1 = 0.77).
+- Modèles copiés : `Assets/Models/BrainB_v1_run2.onnx` (step 2 000 062), `BrainB_v1_run3.onnx` (step 2 000 038).
+- Builds d'évaluation identiques : `BuildEvaluationBPlayer -brainBModel Assets/Models/BrainB_v1_run<n>.onnx`
+  (copie du projet en chemin court `C:\Users\Me\aaa_cal`, scripts identiques au dépôt).
+  Même protocole : bot à compétence 0.2/0.4/0.6/0.8/1.0, 100 rounds par niveau, ×20, positions fixes.
+  Données : `data/eval_BrainB_v1_run1.csv` (16/10), `_run2.csv`, `_run3.csv` (20/10).
+- Sélection mécanique : `python analysis/select_brainB_model.py data/eval_BrainB_v1_run{1,2,3}.csv`
+
+Taux de rounds serrés (écart PV final ≤ 0.2) par niveau de bot, et victoires de B :
+| run | 0.2 | 0.4 | 0.6 | 0.8 | 1.0 | **moyenne serrés** | écart moyen | B gagne à 0.2 / 0.4 / 0.6 |
+|---|---|---|---|---|---|---|---|---|
+| run 3 (graine 3) | 26 % | 88 % | 98 % | 45 % | 0 % | **0.514** | 0.241 | 98 % / 51 % / 34 % |
+| run 1 (aléatoire) | 98 % | 99 % | 100 % | 28 % | 0 % | **0.650** | 0.189 | 37 % / 23 % / 13 % |
+| run 2 (graine 2) | 99 % | 96 % | 100 % | 33 % | 0 % | **0.656** | 0.184 | 63 % / 21 % / 19 % |
+
+**Modèle retenu pour les sessions humaines : `BrainB_v1_run1.onnx`** (médiane des 3, règle fixée le 16/10
+avant de voir les runs 2–3). C'est déjà le modèle par défaut des scènes (`ArenaSetup.BrainBModelPath`) :
+aucun changement de code.
+
+**Lecture :**
+- **Variabilité de l'entraînement importante.** Runs 1 et 2 ont le même comportement de DDA
+  (≈ 100 % de rounds serrés de 0.2 à 0.6). Le run 3 n'a **pas** appris à se retenir contre un bot faible :
+  il gagne 98 % des rounds à 0.2 avec un écart de 0.34 (comme Brain A-initial : 99 %, 0.46). Même
+  récompense, même config, seule la graine change → à écrire dans le mémoire (fiabilité limitée du RL,
+  coût de développement : il faut plusieurs entraînements pour savoir si un résultat est solide).
+- Runs 1 et 2 sont presque à égalité (0.650 contre 0.656) : la différence est du bruit. La règle de la
+  médiane a été appliquée telle quelle ; les deux modèles donneraient la même conclusion.
+- Le biais vers la défaite serrée apparaît aussi dans le run 2 (79–81 % de défaites à 0.4–0.6), mais
+  moins net à 0.2 (37 % de défaites). Les 3 runs perdent largement à 0.8–1.0 (limite des stats A-initial).
+- **Reproductibilité de l'évaluation (run 1, 16/10 contre 20/10) :** taux serrés 100/97/100/33/0 % contre
+  98/99/100/28/0 % (moyenne 0.66 contre 0.65) ; victoires 43/29/12 % contre 37/23/13 %. Pas identique
+  au round près (l'évaluation n'est pas déterministe), mais mêmes conclusions : écart de ±6 points sur
+  100 rounds, compatible avec le bruit d'échantillonnage.
