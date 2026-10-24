@@ -119,7 +119,11 @@ runtime by the A-tuned condition and tuning blocks (no Inspector editing, no sce
    ones (stat ceiling), and leans toward narrow losses. Reward v1 kept.
 5. Repeated sessions (data collection, 3 conditions): session flow **built** (2026-10-20,
    menu *Build Session Scenes*); next: user's test run (P00, includes Brain B in-Editor check),
-   then Brain A tuning blocks, then participants. Deadline Thu 22 Oct evening.
+   Brain A tuning **done 2026-10-24** (A-tuned = iteration 1: damage 10, others unchanged; 9/10 close).
+   **Human sessions skipped (user decision 2026-10-24): no outside participants.** Results = bot evaluation
+   of A-initial / A-tuned / B + A tuning log. Bot eval of A-tuned: `data/eval_BrainA_tuned_20261024.csv`
+   (calibration build with `-brainATuned`); avg close-rate A-initial 0.452, A-tuned 0.460, B run1 0.650.
+   **App finished.**
 6. Python analysis script + figures for the mémoire
 
 ## Human session protocol (decided 2026-10-20)

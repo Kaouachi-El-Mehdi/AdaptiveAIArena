@@ -357,3 +357,69 @@ difficulté) ; Brain B les voit aussi, Brain A ne les utilise pas.
 - Les clics (consignes, notes) avaient été testés à la main par l'utilisateur (15:01–15:04).
 - Toutes les lignes de test (P00, P09, auto-test) mises de côté : `sessions.csv` renommé
   `sessions_test_20261020.csv` (rien supprimé). Le prochain `sessions.csv` ne contiendra que des données réelles.
+
+## 2026-10-24 19:55 — Réglage Brain A : itération 0 (bloc de référence) → itération 1
+
+- **Bloc itération 0** (stats initiales : vitesse 3, recharge 0.8, dégâts 8, détection 6), joué par
+  l'utilisateur (DEV), 10 manches, **2.1 min** : **3/10 manches serrées → échec** (< 7).
+- Écarts finaux : 0.20 0.44 0.12 0.28 0.28 0.28 0.20 0.28 0.28 0.36. Brain A **perd les 10 manches**
+  mais inflige en moyenne 75 dégâts (56 à 88) : il est un peu trop faible, pas complètement dépassé.
+- **Changement (itération 1) :** dégâts 8 → **10** (+25 %), un seul paramètre modifié (les 3 autres
+  inchangés). Raisonnement : +25 % de dégâts → environ 94 dégâts infligés par manche → écart attendu ≈ 0.06.
+- `BrainATuning.cs` mis à jour (`Iteration = 1`), build de session refait (`BuildSessionPlayer`).
+- Temps de cette passe (analyse + modification + build) : ~5 min.
+- Contexte : retard sur le planning (sessions prévues terminées le 22/10) ; réglage limité à 2–3 itérations.
+
+## 2026-10-24 20:05 — Réglage Brain A : itération 1 → RÉUSSI, réglage terminé
+
+- **Bloc itération 1** (vitesse 3, recharge 0.8, **dégâts 10**, détection 6), DEV, 10 manches,
+  **1.9 min** : **9/10 manches serrées → réussi** (≥ 7).
+- Écarts finaux : 0.10 0.30 0.20 0.20 0.10 0.10 0.20 0.20 0.10 0.10. Brain A gagne 1 manche sur 10
+  (joueur à 70 PV), perd les 9 autres de peu (80 à 90 dégâts infligés).
+- **Valeurs finales A-réglé = itération 1** : vitesse 3, recharge 0.8, dégâts 10, détection 6.
+  Le build de session (`Builds/Session/Arena.exe`) contient déjà ces valeurs (fait après la dernière
+  modification) : pas de nouveau build nécessaire.
+- **Coût de développement de Brain A (pour le mémoire) :** 1 itération de réglage, 2 blocs joués
+  (2.1 + 1.9 = 4.0 min de jeu) + ~5 min d'analyse/modification/build ≈ **10 min** au total.
+- Limites à écrire : réglage fait par un seul joueur (le développeur), qui connaît le jeu ; Brain A réglé
+  reste légèrement perdant (9 défaites serrées sur 10), comme le biais « défaite de peu » de Brain B.
+
+## 2026-10-24 20:05–20:08 — Évaluation bot de Brain A réglé (itération 1) — run 20261024_200543
+
+**Décision de l'utilisateur (2026-10-24) : pas de sessions humaines.** Aucun participant extérieur ne
+sera recruté. Le mémoire présentera l'évaluation par bot (A-initial, A-réglé, B) + le journal de réglage
+de A, et dira clairement qu'aucun joueur extérieur n'a testé le jeu. Le déroulé de session reste dans le
+dépôt tel quel (non utilisé pour les résultats).
+
+- **Protocole identique aux évaluations précédentes :** build standalone de calibration, bot à compétence
+  fixe 0.2 / 0.4 / 0.6 / 0.8 / 1.0, 100 rounds par niveau, ×20, positions fixes, `-batchmode -nographics`.
+- Nouvel argument `-brainATuned` (lu seulement par `BotCalibration`) : applique `BrainATuning.Stats()`
+  (vitesse 3, recharge 0.8, **dégâts 10**, détection 6) et `tuning_iteration_number = 1`. Sans l'argument,
+  la calibration reste celle de A-initial. Aucun changement pour le déroulé de session.
+- Build fait dans la copie en chemin court `C:\Users\Me\aaa_cal` (l'Editor était ouvert sur le projet),
+  scripts copiés depuis le dépôt et vérifiés identiques (`diff -rq`).
+- Durée : 2 min 10 s. 500 lignes, toutes avec les stats réglées. Données : `data/eval_BrainA_tuned_20261024.csv`.
+
+| bot | A-réglé : gagne / perd | écart moyen | serrés | durée |
+|---|---|---|---|---|
+| 0.2 | 100 % / 0 % | 0.59 | 0 % | 9.1 s |
+| 0.4 | 100 % / 0 % | 0.36 | 24 % | 8.8 s |
+| 0.6 | 100 % / 0 % | 0.30 | 29 % | 8.9 s |
+| 0.8 | 56 % / 44 % | 0.12 | 99 % | 8.6 s |
+| 1.0 | 0 % / 100 % | 0.22 | 78 % | 7.1 s |
+| **moyenne** | | **0.32** | **0.460** | |
+
+Aucun timeout. Comparaison (taux de rounds serrés moyen sur les 5 niveaux) : **A-initial 0.452**
+(`bot_calibration_20261016.csv`), **A-réglé 0.460**, **B v1 run 1 0.650** (`eval_BrainB_v1_run1.csv`).
+
+**Lecture :**
+- **Le réglage déplace la zone d'équilibre, il ne l'élargit pas.** A-initial est équilibré contre un bot
+  de niveau 0.6 (97 % serrés) ; A-réglé l'est contre 0.8–1.0 (99 % / 78 %), c'est-à-dire contre un joueur
+  du niveau du développeur qui l'a réglé. En échange, il écrase les joueurs faibles et moyens (0.2–0.6 :
+  100 % de victoires, 0–29 % de rounds serrés). Le taux serré moyen ne bouge presque pas (0.452 → 0.460).
+- **B couvre une plage plus large** (98–100 % serrés de 0.2 à 0.6) mais pas les joueurs forts
+  (28 % / 0 % à 0.8 / 1.0, limite des stats A-initial). A-réglé et B sont donc **complémentaires** :
+  A-réglé réussit là où B échoue (joueurs forts) et l'inverse.
+- Cohérent avec le bloc de réglage humain (9/10 serrés pour le développeur) : le développeur joue au
+  niveau d'un bot fort (≈ 0.8–1.0).
+- Coût : A = 1 itération, ~10 min en tout ; B = 3 entraînements × ~1 h 40 + conception de la récompense.

@@ -37,6 +37,15 @@ public class BotCalibration : MonoBehaviour
         Application.targetFrameRate = -1;
         runId = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         roundManager.OnRoundEnd += HandleRoundEnd;
+
+        // -brainATuned: evaluate Brain A at its final tuned stats (BrainATuning.cs) instead of the initial ones.
+        var brainA = FindAnyObjectByType<EnemyBrainA>();
+        if (brainA != null && Array.IndexOf(Environment.GetCommandLineArgs(), "-brainATuned") >= 0)
+        {
+            brainA.stats = BrainATuning.Stats();
+            roundManager.tuningIterationNumber = BrainATuning.Iteration;
+            Debug.Log($"[BotCalibration] Brain A tuned stats, iteration {BrainATuning.Iteration}");
+        }
         Debug.Log($"[BotCalibration] Run {runId}: {skillLevels.Length} levels x {roundsPerLevel} rounds -> {FilePath}");
     }
 

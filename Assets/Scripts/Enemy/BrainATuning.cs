@@ -5,13 +5,13 @@
 // after editing (only for a new standalone build).
 public static class BrainATuning
 {
-    public const int Iteration = 0;
+    public const int Iteration = 1;
 
     public static EnemyStats Stats() => new EnemyStats
     {
         moveSpeed = 3f,
         attackCooldown = 0.8f,
-        attackDamage = 8f,
+        attackDamage = 10f,
         detectionRange = 6f
     };
 }
