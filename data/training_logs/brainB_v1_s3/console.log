@@ -1,0 +1,281 @@
+C:\Users\Me\AdaptiveAIArena\ml-venv\lib\site-packages\mlagents\torch_utils\torch.py:4: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+C:\Users\Me\AdaptiveAIArena\ml-venv\lib\site-packages\mlagents\torch_utils\torch.py:4: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+[INFO] Connected to Unity environment with package version 4.1.0 and communication version 1.5.0
+[INFO] Connected new brain: BrainB?team=0
+
+
+	Unity Technologies
+
+ Version information:
+  ml-agents: 1.1.0,
+  ml-agents-envs: 1.1.0,
+  Communicator API: 1.5.0,
+  PyTorch: 2.2.2+cpu
+[INFO] Hyperparameters for behavior name BrainB: 
+	trainer_type:	ppo
+	hyperparameters:	
+	  batch_size:	512
+	  buffer_size:	10240
+	  learning_rate:	0.0003
+	  beta:	0.005
+	  epsilon:	0.2
+	  lambd:	0.95
+	  num_epoch:	3
+	  shared_critic:	False
+	  learning_rate_schedule:	linear
+	  beta_schedule:	linear
+	  epsilon_schedule:	linear
+	checkpoint_interval:	100000
+	network_settings:	
+	  normalize:	True
+	  hidden_units:	128
+	  num_layers:	2
+	  vis_encode_type:	simple
+	  memory:	None
+	  goal_conditioning_type:	hyper
+	  deterministic:	False
+	reward_signals:	
+	  extrinsic:	
+	    gamma:	0.99
+	    strength:	1.0
+	    network_settings:	
+	      normalize:	False
+	      hidden_units:	128
+	      num_layers:	2
+	      vis_encode_type:	simple
+	      memory:	None
+	      goal_conditioning_type:	hyper
+	      deterministic:	False
+	init_path:	None
+	keep_checkpoints:	5
+	even_checkpoints:	False
+	max_steps:	2000000
+	time_horizon:	128
+	summary_freq:	10000
+	threaded:	False
+	self_play:	None
+	behavioral_cloning:	None
+[INFO] BrainB. Step: 10000. Time Elapsed: 37.455 s. Mean Reward: 0.640. Std of Reward: 0.187. Training.
+[INFO] BrainB. Step: 20000. Time Elapsed: 66.896 s. Mean Reward: 0.648. Std of Reward: 0.210. Training.
+[INFO] BrainB. Step: 30000. Time Elapsed: 100.463 s. Mean Reward: 0.647. Std of Reward: 0.205. Training.
+[INFO] BrainB. Step: 40000. Time Elapsed: 130.117 s. Mean Reward: 0.675. Std of Reward: 0.177. Training.
+[INFO] BrainB. Step: 50000. Time Elapsed: 161.959 s. Mean Reward: 0.681. Std of Reward: 0.168. Training.
+[INFO] BrainB. Step: 60000. Time Elapsed: 188.883 s. Mean Reward: 0.659. Std of Reward: 0.220. Training.
+[INFO] BrainB. Step: 70000. Time Elapsed: 215.387 s. Mean Reward: 0.645. Std of Reward: 0.206. Training.
+[INFO] BrainB. Step: 80000. Time Elapsed: 241.606 s. Mean Reward: 0.684. Std of Reward: 0.175. Training.
+[INFO] BrainB. Step: 90000. Time Elapsed: 266.877 s. Mean Reward: 0.682. Std of Reward: 0.227. Training.
+[INFO] BrainB. Step: 100000. Time Elapsed: 291.762 s. Mean Reward: 0.692. Std of Reward: 0.171. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-99981.onnx
+[INFO] BrainB. Step: 110000. Time Elapsed: 316.003 s. Mean Reward: 0.660. Std of Reward: 0.178. Training.
+[INFO] BrainB. Step: 120000. Time Elapsed: 340.706 s. Mean Reward: 0.670. Std of Reward: 0.199. Training.
+[INFO] BrainB. Step: 130000. Time Elapsed: 365.715 s. Mean Reward: 0.690. Std of Reward: 0.195. Training.
+[INFO] BrainB. Step: 140000. Time Elapsed: 391.098 s. Mean Reward: 0.681. Std of Reward: 0.184. Training.
+[INFO] BrainB. Step: 150000. Time Elapsed: 417.361 s. Mean Reward: 0.714. Std of Reward: 0.190. Training.
+[INFO] BrainB. Step: 160000. Time Elapsed: 440.731 s. Mean Reward: 0.655. Std of Reward: 0.214. Training.
+[INFO] BrainB. Step: 170000. Time Elapsed: 464.150 s. Mean Reward: 0.706. Std of Reward: 0.185. Training.
+[INFO] BrainB. Step: 180000. Time Elapsed: 487.464 s. Mean Reward: 0.665. Std of Reward: 0.202. Training.
+[INFO] BrainB. Step: 190000. Time Elapsed: 511.015 s. Mean Reward: 0.664. Std of Reward: 0.199. Training.
+[INFO] BrainB. Step: 200000. Time Elapsed: 534.581 s. Mean Reward: 0.670. Std of Reward: 0.209. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-199962.onnx
+[INFO] BrainB. Step: 210000. Time Elapsed: 558.691 s. Mean Reward: 0.640. Std of Reward: 0.239. Training.
+[INFO] BrainB. Step: 220000. Time Elapsed: 583.169 s. Mean Reward: 0.678. Std of Reward: 0.200. Training.
+[INFO] BrainB. Step: 230000. Time Elapsed: 622.819 s. Mean Reward: 0.690. Std of Reward: 0.160. Training.
+[INFO] BrainB. Step: 240000. Time Elapsed: 662.681 s. Mean Reward: 0.718. Std of Reward: 0.189. Training.
+[INFO] BrainB. Step: 250000. Time Elapsed: 702.500 s. Mean Reward: 0.692. Std of Reward: 0.190. Training.
+[INFO] BrainB. Step: 260000. Time Elapsed: 743.003 s. Mean Reward: 0.660. Std of Reward: 0.212. Training.
+[INFO] BrainB. Step: 270000. Time Elapsed: 782.624 s. Mean Reward: 0.685. Std of Reward: 0.212. Training.
+[INFO] BrainB. Step: 280000. Time Elapsed: 821.197 s. Mean Reward: 0.702. Std of Reward: 0.187. Training.
+[INFO] BrainB. Step: 290000. Time Elapsed: 859.743 s. Mean Reward: 0.682. Std of Reward: 0.214. Training.
+[INFO] BrainB. Step: 300000. Time Elapsed: 898.971 s. Mean Reward: 0.679. Std of Reward: 0.183. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-299948.onnx
+[INFO] BrainB. Step: 310000. Time Elapsed: 937.377 s. Mean Reward: 0.703. Std of Reward: 0.202. Training.
+[INFO] BrainB. Step: 320000. Time Elapsed: 975.962 s. Mean Reward: 0.703. Std of Reward: 0.144. Training.
+[INFO] BrainB. Step: 330000. Time Elapsed: 1014.547 s. Mean Reward: 0.712. Std of Reward: 0.177. Training.
+[INFO] BrainB. Step: 340000. Time Elapsed: 1053.194 s. Mean Reward: 0.684. Std of Reward: 0.221. Training.
+[INFO] BrainB. Step: 350000. Time Elapsed: 1091.733 s. Mean Reward: 0.687. Std of Reward: 0.200. Training.
+[INFO] BrainB. Step: 360000. Time Elapsed: 1127.281 s. Mean Reward: 0.668. Std of Reward: 0.191. Training.
+[INFO] BrainB. Step: 370000. Time Elapsed: 1165.760 s. Mean Reward: 0.673. Std of Reward: 0.193. Training.
+[INFO] BrainB. Step: 380000. Time Elapsed: 1205.879 s. Mean Reward: 0.620. Std of Reward: 0.251. Training.
+[INFO] BrainB. Step: 390000. Time Elapsed: 1247.538 s. Mean Reward: 0.668. Std of Reward: 0.211. Training.
+[INFO] BrainB. Step: 400000. Time Elapsed: 1286.935 s. Mean Reward: 0.691. Std of Reward: 0.186. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-399929.onnx
+[INFO] BrainB. Step: 410000. Time Elapsed: 1325.852 s. Mean Reward: 0.722. Std of Reward: 0.184. Training.
+[INFO] BrainB. Step: 420000. Time Elapsed: 1364.836 s. Mean Reward: 0.696. Std of Reward: 0.191. Training.
+[INFO] BrainB. Step: 430000. Time Elapsed: 1403.787 s. Mean Reward: 0.693. Std of Reward: 0.199. Training.
+[INFO] BrainB. Step: 440000. Time Elapsed: 1442.791 s. Mean Reward: 0.708. Std of Reward: 0.212. Training.
+[INFO] BrainB. Step: 450000. Time Elapsed: 1481.693 s. Mean Reward: 0.685. Std of Reward: 0.183. Training.
+[INFO] BrainB. Step: 460000. Time Elapsed: 1520.757 s. Mean Reward: 0.655. Std of Reward: 0.214. Training.
+[INFO] BrainB. Step: 470000. Time Elapsed: 1559.290 s. Mean Reward: 0.691. Std of Reward: 0.183. Training.
+[INFO] BrainB. Step: 480000. Time Elapsed: 1597.990 s. Mean Reward: 0.700. Std of Reward: 0.173. Training.
+[INFO] BrainB. Step: 490000. Time Elapsed: 1636.902 s. Mean Reward: 0.662. Std of Reward: 0.195. Training.
+[INFO] BrainB. Step: 500000. Time Elapsed: 1676.089 s. Mean Reward: 0.695. Std of Reward: 0.173. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-499983.onnx
+[INFO] BrainB. Step: 510000. Time Elapsed: 1714.834 s. Mean Reward: 0.651. Std of Reward: 0.209. Training.
+[INFO] BrainB. Step: 520000. Time Elapsed: 1753.817 s. Mean Reward: 0.720. Std of Reward: 0.161. Training.
+[INFO] BrainB. Step: 530000. Time Elapsed: 1793.076 s. Mean Reward: 0.681. Std of Reward: 0.185. Training.
+[INFO] BrainB. Step: 540000. Time Elapsed: 1831.934 s. Mean Reward: 0.684. Std of Reward: 0.206. Training.
+[INFO] BrainB. Step: 550000. Time Elapsed: 1870.876 s. Mean Reward: 0.682. Std of Reward: 0.202. Training.
+[INFO] BrainB. Step: 560000. Time Elapsed: 1909.943 s. Mean Reward: 0.686. Std of Reward: 0.191. Training.
+[INFO] BrainB. Step: 570000. Time Elapsed: 1949.967 s. Mean Reward: 0.692. Std of Reward: 0.192. Training.
+[INFO] BrainB. Step: 580000. Time Elapsed: 1988.758 s. Mean Reward: 0.695. Std of Reward: 0.161. Training.
+[INFO] BrainB. Step: 590000. Time Elapsed: 2027.638 s. Mean Reward: 0.688. Std of Reward: 0.197. Training.
+[INFO] BrainB. Step: 600000. Time Elapsed: 2066.589 s. Mean Reward: 0.705. Std of Reward: 0.136. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-599916.onnx
+[INFO] BrainB. Step: 610000. Time Elapsed: 2105.659 s. Mean Reward: 0.684. Std of Reward: 0.185. Training.
+[INFO] BrainB. Step: 620000. Time Elapsed: 2144.914 s. Mean Reward: 0.689. Std of Reward: 0.199. Training.
+[INFO] BrainB. Step: 630000. Time Elapsed: 2183.618 s. Mean Reward: 0.693. Std of Reward: 0.155. Training.
+[INFO] BrainB. Step: 640000. Time Elapsed: 2222.708 s. Mean Reward: 0.686. Std of Reward: 0.214. Training.
+[INFO] BrainB. Step: 650000. Time Elapsed: 2261.894 s. Mean Reward: 0.647. Std of Reward: 0.192. Training.
+[INFO] BrainB. Step: 660000. Time Elapsed: 2300.626 s. Mean Reward: 0.704. Std of Reward: 0.148. Training.
+[INFO] BrainB. Step: 670000. Time Elapsed: 2338.502 s. Mean Reward: 0.684. Std of Reward: 0.192. Training.
+[INFO] BrainB. Step: 680000. Time Elapsed: 2376.653 s. Mean Reward: 0.689. Std of Reward: 0.179. Training.
+[INFO] BrainB. Step: 690000. Time Elapsed: 2414.579 s. Mean Reward: 0.724. Std of Reward: 0.175. Training.
+[INFO] BrainB. Step: 700000. Time Elapsed: 2450.738 s. Mean Reward: 0.713. Std of Reward: 0.175. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-699896.onnx
+[INFO] BrainB. Step: 710000. Time Elapsed: 2489.177 s. Mean Reward: 0.681. Std of Reward: 0.204. Training.
+[INFO] BrainB. Step: 720000. Time Elapsed: 2527.408 s. Mean Reward: 0.695. Std of Reward: 0.164. Training.
+[INFO] BrainB. Step: 730000. Time Elapsed: 2565.276 s. Mean Reward: 0.686. Std of Reward: 0.189. Training.
+[INFO] BrainB. Step: 740000. Time Elapsed: 2603.602 s. Mean Reward: 0.676. Std of Reward: 0.208. Training.
+[INFO] BrainB. Step: 750000. Time Elapsed: 2641.424 s. Mean Reward: 0.676. Std of Reward: 0.181. Training.
+[INFO] BrainB. Step: 760000. Time Elapsed: 2679.724 s. Mean Reward: 0.700. Std of Reward: 0.163. Training.
+[INFO] BrainB. Step: 770000. Time Elapsed: 2717.812 s. Mean Reward: 0.731. Std of Reward: 0.172. Training.
+[INFO] BrainB. Step: 780000. Time Elapsed: 2755.831 s. Mean Reward: 0.694. Std of Reward: 0.170. Training.
+[INFO] BrainB. Step: 790000. Time Elapsed: 2794.008 s. Mean Reward: 0.668. Std of Reward: 0.187. Training.
+[INFO] BrainB. Step: 800000. Time Elapsed: 2831.852 s. Mean Reward: 0.682. Std of Reward: 0.186. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-799879.onnx
+[INFO] BrainB. Step: 810000. Time Elapsed: 2870.195 s. Mean Reward: 0.645. Std of Reward: 0.203. Training.
+[INFO] BrainB. Step: 820000. Time Elapsed: 2908.061 s. Mean Reward: 0.694. Std of Reward: 0.152. Training.
+[INFO] BrainB. Step: 830000. Time Elapsed: 2946.264 s. Mean Reward: 0.680. Std of Reward: 0.170. Training.
+[INFO] BrainB. Step: 840000. Time Elapsed: 2984.662 s. Mean Reward: 0.680. Std of Reward: 0.184. Training.
+[INFO] BrainB. Step: 850000. Time Elapsed: 3022.795 s. Mean Reward: 0.706. Std of Reward: 0.186. Training.
+[INFO] BrainB. Step: 860000. Time Elapsed: 3061.054 s. Mean Reward: 0.687. Std of Reward: 0.164. Training.
+[INFO] BrainB. Step: 870000. Time Elapsed: 3099.211 s. Mean Reward: 0.653. Std of Reward: 0.214. Training.
+[INFO] BrainB. Step: 880000. Time Elapsed: 3137.184 s. Mean Reward: 0.689. Std of Reward: 0.175. Training.
+[INFO] BrainB. Step: 890000. Time Elapsed: 3175.128 s. Mean Reward: 0.683. Std of Reward: 0.189. Training.
+[INFO] BrainB. Step: 900000. Time Elapsed: 3213.407 s. Mean Reward: 0.671. Std of Reward: 0.202. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-899996.onnx
+[INFO] BrainB. Step: 910000. Time Elapsed: 3251.521 s. Mean Reward: 0.713. Std of Reward: 0.182. Training.
+[INFO] BrainB. Step: 920000. Time Elapsed: 3289.654 s. Mean Reward: 0.723. Std of Reward: 0.175. Training.
+[INFO] BrainB. Step: 930000. Time Elapsed: 3327.580 s. Mean Reward: 0.710. Std of Reward: 0.150. Training.
+[INFO] BrainB. Step: 940000. Time Elapsed: 3366.678 s. Mean Reward: 0.713. Std of Reward: 0.171. Training.
+[INFO] BrainB. Step: 950000. Time Elapsed: 3404.456 s. Mean Reward: 0.704. Std of Reward: 0.171. Training.
+[INFO] BrainB. Step: 960000. Time Elapsed: 3442.642 s. Mean Reward: 0.711. Std of Reward: 0.171. Training.
+[INFO] BrainB. Step: 970000. Time Elapsed: 3480.790 s. Mean Reward: 0.695. Std of Reward: 0.190. Training.
+[INFO] BrainB. Step: 980000. Time Elapsed: 3518.785 s. Mean Reward: 0.677. Std of Reward: 0.169. Training.
+[INFO] BrainB. Step: 990000. Time Elapsed: 3557.037 s. Mean Reward: 0.703. Std of Reward: 0.164. Training.
+[INFO] BrainB. Step: 1000000. Time Elapsed: 3595.220 s. Mean Reward: 0.681. Std of Reward: 0.145. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-999929.onnx
+[INFO] BrainB. Step: 1010000. Time Elapsed: 3633.392 s. Mean Reward: 0.686. Std of Reward: 0.188. Training.
+[INFO] BrainB. Step: 1020000. Time Elapsed: 3671.631 s. Mean Reward: 0.695. Std of Reward: 0.176. Training.
+[INFO] BrainB. Step: 1030000. Time Elapsed: 3709.701 s. Mean Reward: 0.670. Std of Reward: 0.195. Training.
+[INFO] BrainB. Step: 1040000. Time Elapsed: 3745.442 s. Mean Reward: 0.658. Std of Reward: 0.192. Training.
+[INFO] BrainB. Step: 1050000. Time Elapsed: 3787.584 s. Mean Reward: 0.682. Std of Reward: 0.186. Training.
+[INFO] BrainB. Step: 1060000. Time Elapsed: 3831.112 s. Mean Reward: 0.706. Std of Reward: 0.185. Training.
+[INFO] BrainB. Step: 1070000. Time Elapsed: 3874.626 s. Mean Reward: 0.690. Std of Reward: 0.165. Training.
+[INFO] BrainB. Step: 1080000. Time Elapsed: 3917.869 s. Mean Reward: 0.714. Std of Reward: 0.182. Training.
+[INFO] BrainB. Step: 1090000. Time Elapsed: 3961.401 s. Mean Reward: 0.721. Std of Reward: 0.168. Training.
+[INFO] BrainB. Step: 1100000. Time Elapsed: 4005.632 s. Mean Reward: 0.716. Std of Reward: 0.155. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1099933.onnx
+[INFO] BrainB. Step: 1110000. Time Elapsed: 4048.828 s. Mean Reward: 0.722. Std of Reward: 0.168. Training.
+[INFO] BrainB. Step: 1120000. Time Elapsed: 4092.623 s. Mean Reward: 0.684. Std of Reward: 0.191. Training.
+[INFO] BrainB. Step: 1130000. Time Elapsed: 4135.691 s. Mean Reward: 0.700. Std of Reward: 0.158. Training.
+[INFO] BrainB. Step: 1140000. Time Elapsed: 4179.088 s. Mean Reward: 0.695. Std of Reward: 0.173. Training.
+[INFO] BrainB. Step: 1150000. Time Elapsed: 4222.930 s. Mean Reward: 0.700. Std of Reward: 0.162. Training.
+[INFO] BrainB. Step: 1160000. Time Elapsed: 4265.989 s. Mean Reward: 0.702. Std of Reward: 0.170. Training.
+[INFO] BrainB. Step: 1170000. Time Elapsed: 4309.135 s. Mean Reward: 0.688. Std of Reward: 0.164. Training.
+[INFO] BrainB. Step: 1180000. Time Elapsed: 4352.283 s. Mean Reward: 0.705. Std of Reward: 0.169. Training.
+[INFO] BrainB. Step: 1190000. Time Elapsed: 4395.148 s. Mean Reward: 0.672. Std of Reward: 0.186. Training.
+[INFO] BrainB. Step: 1200000. Time Elapsed: 4438.757 s. Mean Reward: 0.706. Std of Reward: 0.186. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1199922.onnx
+[INFO] BrainB. Step: 1210000. Time Elapsed: 4482.357 s. Mean Reward: 0.688. Std of Reward: 0.193. Training.
+[INFO] BrainB. Step: 1220000. Time Elapsed: 4525.511 s. Mean Reward: 0.682. Std of Reward: 0.178. Training.
+[INFO] BrainB. Step: 1230000. Time Elapsed: 4568.586 s. Mean Reward: 0.694. Std of Reward: 0.177. Training.
+[INFO] BrainB. Step: 1240000. Time Elapsed: 4611.822 s. Mean Reward: 0.719. Std of Reward: 0.155. Training.
+[INFO] BrainB. Step: 1250000. Time Elapsed: 4655.727 s. Mean Reward: 0.711. Std of Reward: 0.156. Training.
+[INFO] BrainB. Step: 1260000. Time Elapsed: 4699.339 s. Mean Reward: 0.719. Std of Reward: 0.172. Training.
+[INFO] BrainB. Step: 1270000. Time Elapsed: 4742.765 s. Mean Reward: 0.698. Std of Reward: 0.162. Training.
+[INFO] BrainB. Step: 1280000. Time Elapsed: 4786.204 s. Mean Reward: 0.707. Std of Reward: 0.186. Training.
+[INFO] BrainB. Step: 1290000. Time Elapsed: 4828.921 s. Mean Reward: 0.706. Std of Reward: 0.177. Training.
+[INFO] BrainB. Step: 1300000. Time Elapsed: 4872.683 s. Mean Reward: 0.697. Std of Reward: 0.150. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1299991.onnx
+[INFO] BrainB. Step: 1310000. Time Elapsed: 4915.892 s. Mean Reward: 0.730. Std of Reward: 0.150. Training.
+[INFO] BrainB. Step: 1320000. Time Elapsed: 4958.273 s. Mean Reward: 0.707. Std of Reward: 0.179. Training.
+[INFO] BrainB. Step: 1330000. Time Elapsed: 5000.329 s. Mean Reward: 0.723. Std of Reward: 0.163. Training.
+[INFO] BrainB. Step: 1340000. Time Elapsed: 5042.949 s. Mean Reward: 0.701. Std of Reward: 0.156. Training.
+[INFO] BrainB. Step: 1350000. Time Elapsed: 5085.767 s. Mean Reward: 0.698. Std of Reward: 0.157. Training.
+[INFO] BrainB. Step: 1360000. Time Elapsed: 5129.137 s. Mean Reward: 0.720. Std of Reward: 0.146. Training.
+[INFO] BrainB. Step: 1370000. Time Elapsed: 5172.093 s. Mean Reward: 0.689. Std of Reward: 0.175. Training.
+[INFO] BrainB. Step: 1380000. Time Elapsed: 5214.850 s. Mean Reward: 0.705. Std of Reward: 0.190. Training.
+[INFO] BrainB. Step: 1390000. Time Elapsed: 5256.035 s. Mean Reward: 0.710. Std of Reward: 0.167. Training.
+[INFO] BrainB. Step: 1400000. Time Elapsed: 5299.364 s. Mean Reward: 0.707. Std of Reward: 0.154. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1399920.onnx
+[INFO] BrainB. Step: 1410000. Time Elapsed: 5343.232 s. Mean Reward: 0.698. Std of Reward: 0.170. Training.
+[INFO] BrainB. Step: 1420000. Time Elapsed: 5386.305 s. Mean Reward: 0.733. Std of Reward: 0.153. Training.
+[INFO] BrainB. Step: 1430000. Time Elapsed: 5429.673 s. Mean Reward: 0.698. Std of Reward: 0.177. Training.
+[INFO] BrainB. Step: 1440000. Time Elapsed: 5472.525 s. Mean Reward: 0.702. Std of Reward: 0.154. Training.
+[INFO] BrainB. Step: 1450000. Time Elapsed: 5515.445 s. Mean Reward: 0.701. Std of Reward: 0.161. Training.
+[INFO] BrainB. Step: 1460000. Time Elapsed: 5558.747 s. Mean Reward: 0.738. Std of Reward: 0.151. Training.
+[INFO] BrainB. Step: 1470000. Time Elapsed: 5598.361 s. Mean Reward: 0.721. Std of Reward: 0.149. Training.
+[INFO] BrainB. Step: 1480000. Time Elapsed: 5637.389 s. Mean Reward: 0.743. Std of Reward: 0.137. Training.
+[INFO] BrainB. Step: 1490000. Time Elapsed: 5678.141 s. Mean Reward: 0.709. Std of Reward: 0.155. Training.
+[INFO] BrainB. Step: 1500000. Time Elapsed: 5719.380 s. Mean Reward: 0.716. Std of Reward: 0.137. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1499978.onnx
+[INFO] BrainB. Step: 1510000. Time Elapsed: 5759.391 s. Mean Reward: 0.712. Std of Reward: 0.164. Training.
+[INFO] BrainB. Step: 1520000. Time Elapsed: 5799.898 s. Mean Reward: 0.709. Std of Reward: 0.181. Training.
+[INFO] BrainB. Step: 1530000. Time Elapsed: 5840.315 s. Mean Reward: 0.756. Std of Reward: 0.143. Training.
+[INFO] BrainB. Step: 1540000. Time Elapsed: 5879.606 s. Mean Reward: 0.708. Std of Reward: 0.174. Training.
+[INFO] BrainB. Step: 1550000. Time Elapsed: 5920.062 s. Mean Reward: 0.690. Std of Reward: 0.167. Training.
+[INFO] BrainB. Step: 1560000. Time Elapsed: 5961.006 s. Mean Reward: 0.735. Std of Reward: 0.155. Training.
+[INFO] BrainB. Step: 1570000. Time Elapsed: 6001.975 s. Mean Reward: 0.716. Std of Reward: 0.154. Training.
+[INFO] BrainB. Step: 1580000. Time Elapsed: 6040.353 s. Mean Reward: 0.715. Std of Reward: 0.163. Training.
+[INFO] BrainB. Step: 1590000. Time Elapsed: 6077.851 s. Mean Reward: 0.703. Std of Reward: 0.171. Training.
+[INFO] BrainB. Step: 1600000. Time Elapsed: 6115.632 s. Mean Reward: 0.704. Std of Reward: 0.167. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1599987.onnx
+[INFO] BrainB. Step: 1610000. Time Elapsed: 6153.042 s. Mean Reward: 0.705. Std of Reward: 0.154. Training.
+[INFO] BrainB. Step: 1620000. Time Elapsed: 6191.367 s. Mean Reward: 0.709. Std of Reward: 0.159. Training.
+[INFO] BrainB. Step: 1630000. Time Elapsed: 6230.125 s. Mean Reward: 0.722. Std of Reward: 0.178. Training.
+[INFO] BrainB. Step: 1640000. Time Elapsed: 6268.185 s. Mean Reward: 0.702. Std of Reward: 0.150. Training.
+[INFO] BrainB. Step: 1650000. Time Elapsed: 6306.580 s. Mean Reward: 0.724. Std of Reward: 0.151. Training.
+[INFO] BrainB. Step: 1660000. Time Elapsed: 6343.164 s. Mean Reward: 0.710. Std of Reward: 0.174. Training.
+[INFO] BrainB. Step: 1670000. Time Elapsed: 6379.948 s. Mean Reward: 0.729. Std of Reward: 0.150. Training.
+[INFO] BrainB. Step: 1680000. Time Elapsed: 6416.425 s. Mean Reward: 0.719. Std of Reward: 0.171. Training.
+[INFO] BrainB. Step: 1690000. Time Elapsed: 6453.004 s. Mean Reward: 0.711. Std of Reward: 0.178. Training.
+[INFO] BrainB. Step: 1700000. Time Elapsed: 6489.425 s. Mean Reward: 0.714. Std of Reward: 0.158. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1699900.onnx
+[INFO] BrainB. Step: 1710000. Time Elapsed: 6526.171 s. Mean Reward: 0.699. Std of Reward: 0.178. Training.
+[INFO] BrainB. Step: 1720000. Time Elapsed: 6562.922 s. Mean Reward: 0.727. Std of Reward: 0.141. Training.
+[INFO] BrainB. Step: 1730000. Time Elapsed: 6599.732 s. Mean Reward: 0.700. Std of Reward: 0.157. Training.
+[INFO] BrainB. Step: 1740000. Time Elapsed: 6634.487 s. Mean Reward: 0.718. Std of Reward: 0.163. Training.
+[INFO] BrainB. Step: 1750000. Time Elapsed: 6671.060 s. Mean Reward: 0.718. Std of Reward: 0.173. Training.
+[INFO] BrainB. Step: 1760000. Time Elapsed: 6709.054 s. Mean Reward: 0.682. Std of Reward: 0.169. Training.
+[INFO] BrainB. Step: 1770000. Time Elapsed: 6747.525 s. Mean Reward: 0.698. Std of Reward: 0.161. Training.
+[INFO] BrainB. Step: 1780000. Time Elapsed: 6785.739 s. Mean Reward: 0.726. Std of Reward: 0.158. Training.
+[INFO] BrainB. Step: 1790000. Time Elapsed: 6824.096 s. Mean Reward: 0.690. Std of Reward: 0.155. Training.
+[INFO] BrainB. Step: 1800000. Time Elapsed: 6862.913 s. Mean Reward: 0.736. Std of Reward: 0.155. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1799906.onnx
+[INFO] BrainB. Step: 1810000. Time Elapsed: 6900.914 s. Mean Reward: 0.718. Std of Reward: 0.194. Training.
+[INFO] BrainB. Step: 1820000. Time Elapsed: 6938.009 s. Mean Reward: 0.707. Std of Reward: 0.160. Training.
+[INFO] BrainB. Step: 1830000. Time Elapsed: 6974.781 s. Mean Reward: 0.725. Std of Reward: 0.159. Training.
+[INFO] BrainB. Step: 1840000. Time Elapsed: 7012.680 s. Mean Reward: 0.687. Std of Reward: 0.167. Training.
+[INFO] BrainB. Step: 1850000. Time Elapsed: 7050.836 s. Mean Reward: 0.720. Std of Reward: 0.150. Training.
+[INFO] BrainB. Step: 1860000. Time Elapsed: 7089.233 s. Mean Reward: 0.716. Std of Reward: 0.152. Training.
+[INFO] BrainB. Step: 1870000. Time Elapsed: 7128.047 s. Mean Reward: 0.720. Std of Reward: 0.165. Training.
+[INFO] BrainB. Step: 1880000. Time Elapsed: 7166.608 s. Mean Reward: 0.732. Std of Reward: 0.156. Training.
+[INFO] BrainB. Step: 1890000. Time Elapsed: 7204.810 s. Mean Reward: 0.725. Std of Reward: 0.159. Training.
+[INFO] BrainB. Step: 1900000. Time Elapsed: 7243.577 s. Mean Reward: 0.706. Std of Reward: 0.156. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1899936.onnx
+[INFO] BrainB. Step: 1910000. Time Elapsed: 7282.643 s. Mean Reward: 0.709. Std of Reward: 0.143. Training.
+[INFO] BrainB. Step: 1920000. Time Elapsed: 7320.170 s. Mean Reward: 0.711. Std of Reward: 0.168. Training.
+[INFO] BrainB. Step: 1930000. Time Elapsed: 7357.267 s. Mean Reward: 0.716. Std of Reward: 0.152. Training.
+[INFO] BrainB. Step: 1940000. Time Elapsed: 7394.317 s. Mean Reward: 0.709. Std of Reward: 0.163. Training.
+[INFO] BrainB. Step: 1950000. Time Elapsed: 7432.564 s. Mean Reward: 0.706. Std of Reward: 0.164. Training.
+[INFO] BrainB. Step: 1960000. Time Elapsed: 7471.128 s. Mean Reward: 0.701. Std of Reward: 0.170. Training.
+[INFO] BrainB. Step: 1970000. Time Elapsed: 7510.806 s. Mean Reward: 0.733. Std of Reward: 0.153. Training.
+[INFO] BrainB. Step: 1980000. Time Elapsed: 7549.297 s. Mean Reward: 0.712. Std of Reward: 0.160. Training.
+[INFO] BrainB. Step: 1990000. Time Elapsed: 7587.294 s. Mean Reward: 0.712. Std of Reward: 0.168. Training.
+[INFO] BrainB. Step: 2000000. Time Elapsed: 7625.328 s. Mean Reward: 0.711. Std of Reward: 0.164. Training.
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-1999920.onnx
+[INFO] Exported results\brainB_v1_s3\BrainB\BrainB-2000038.onnx
+[INFO] Copied results\brainB_v1_s3\BrainB\BrainB-2000038.onnx to results\brainB_v1_s3\BrainB.onnx.

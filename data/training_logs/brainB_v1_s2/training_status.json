@@ -1,0 +1,65 @@
+{
+    "BrainB": {
+        "checkpoints": [
+            {
+                "steps": 1699929,
+                "file_path": "results\\brainB_v1_s2\\BrainB\\BrainB-1699929.onnx",
+                "reward": 0.8063636428930543,
+                "creation_time": 1792162646.3777823,
+                "auxillary_file_paths": [
+                    "results\\brainB_v1_s2\\BrainB\\BrainB-1699929.pt"
+                ]
+            },
+            {
+                "steps": 1799963,
+                "file_path": "results\\brainB_v1_s2\\BrainB\\BrainB-1799963.onnx",
+                "reward": 0.7601190494550836,
+                "creation_time": 1792163019.49456,
+                "auxillary_file_paths": [
+                    "results\\brainB_v1_s2\\BrainB\\BrainB-1799963.pt"
+                ]
+            },
+            {
+                "steps": 1899881,
+                "file_path": "results\\brainB_v1_s2\\BrainB\\BrainB-1899881.onnx",
+                "reward": 0.7401818197220564,
+                "creation_time": 1792163399.529721,
+                "auxillary_file_paths": [
+                    "results\\brainB_v1_s2\\BrainB\\BrainB-1899881.pt"
+                ]
+            },
+            {
+                "steps": 1999979,
+                "file_path": "results\\brainB_v1_s2\\BrainB\\BrainB-1999979.onnx",
+                "reward": 0.7660714252186673,
+                "creation_time": 1792163781.2717755,
+                "auxillary_file_paths": [
+                    "results\\brainB_v1_s2\\BrainB\\BrainB-1999979.pt"
+                ]
+            },
+            {
+                "steps": 2000062,
+                "file_path": "results\\brainB_v1_s2\\BrainB\\BrainB-2000062.onnx",
+                "reward": 0.7613793069432522,
+                "creation_time": 1792163781.3405406,
+                "auxillary_file_paths": [
+                    "results\\brainB_v1_s2\\BrainB\\BrainB-2000062.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 2000062,
+            "file_path": "results\\brainB_v1_s2\\BrainB.onnx",
+            "reward": 0.7613793069432522,
+            "creation_time": 1792163781.3405406,
+            "auxillary_file_paths": [
+                "results\\brainB_v1_s2\\BrainB\\BrainB-2000062.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "1.1.0",
+        "torch_version": "2.2.2+cpu"
+    }
+}

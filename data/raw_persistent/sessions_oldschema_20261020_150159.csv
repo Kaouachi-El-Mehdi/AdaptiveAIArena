@@ -1,0 +1,3 @@
+brain_type,session_id,timestamp,outcome,time_to_complete,damage_dealt,damage_taken,tuning_iteration_number,enemy_move_speed,enemy_attack_cooldown,enemy_attack_damage,enemy_detection_range
+A,3fc006a9-86c8-4a33-9226-e2e8451562e3,2026-10-15T14:39:01.6402091Z,Win,17.60,100,80,0,3,0.8,8,6
+B,71862292-4520-44df-ab6e-7e73bfff9787,2026-10-15T14:40:05.1470873Z,Win,16.92,100,90,0,3,0.8,8,6
